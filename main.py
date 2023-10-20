@@ -149,11 +149,11 @@ print(df_data)
 print(df_audit)
 
 ismat = "ismetsemedli@mail.ru"
-nigar = "nigar.ly77@gmail.com"
-polad = "polad55@rambler.ru"
-cavid = "xasayev1996@gmail.com"
-kamal = "kamalkhalilov7@gmail.com"
-vusal = "shukurovvusal@gmail.com"
+# nigar = "nigar.ly77@gmail.com"
+# polad = "polad55@rambler.ru"
+# cavid = "xasayev1996@gmail.com"
+# kamal = "kamalkhalilov7@gmail.com"
+# vusal = "shukurovvusal@gmail.com"
 send_email(df_data,  ismat)
 # send_email(df_audit, nigar)
 # send_email(df_audit, polad)
