@@ -1,7 +1,6 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
 import pandas as pd
 import requests
 import urllib3
@@ -107,7 +106,7 @@ def azerconnect():
         return None
 
 
-def fetch_and_filter_job_vacancies():
+def abb():
     base_url = "https://careers.abb-bank.az/api/vacancy/v2/get"
     job_vacancies = []
     page = 1
@@ -135,12 +134,44 @@ def fetch_and_filter_job_vacancies():
     df = pd.DataFrame(job_vacancies)
     return df
 
+def rabitebank():
+    url = "https://www.rabitabank.com/insan-resurslari/vakansiyalar"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
+        job_titles = []
+        job_links = []
 
-abb_df = fetch_and_filter_job_vacancies()
+        for element in soup.select('#vacancies > div > a'):
+            job_titles.append(element.text.strip())
+            job_links.append(element['href'])
+
+        data = {
+            'company': 'rabitebank',
+            'vacancy': job_titles,
+            'apply_link': job_links,
+        }
+        df = pd.DataFrame(data)
+
+        return df
+
+    else:
+        print("Failed to retrieve the page. Status code:", response.status_code)
+        return None
+
+abb_df         = abb()
 azerconnect_df = azerconnect()
-pashabank_df = pashabank()
-azercell_df = azercell()
-df = pd.concat([pashabank_df, azerconnect_df, azercell_df, abb_df], ignore_index=True)
+pashabank_df   = pashabank()
+azercell_df    = azercell()
+rabitebank_df  = rabitebank()
+
+df = pd.concat([pashabank_df, 
+                azerconnect_df, 
+                azercell_df, 
+                abb_df,
+                rabitebank_df
+                ], ignore_index=True)
 df_data = df[df['vacancy'].str.contains("data", case=False)].reset_index(drop=True)
 
 df_audit = df[df['vacancy'].str.contains("audit", case=False)].reset_index(drop=True)
@@ -154,6 +185,7 @@ ismat = "ismetsemedli@mail.ru"
 # cavid = "xasayev1996@gmail.com"
 # kamal = "kamalkhalilov7@gmail.com"
 # vusal = "shukurovvusal@gmail.com"
+# nasib=  "suleymanovnasib@gmail.com"
 send_email(df_data,  ismat)
 # send_email(df_audit, nigar)
 # send_email(df_audit, polad)
