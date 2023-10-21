@@ -1,5 +1,3 @@
-Certainly! Here's a detailed README template for your project. You can use this as a starting point and customize it to fit your project's specific needs:
-
 ---
 
 # Job Scraper and Email Notifier
