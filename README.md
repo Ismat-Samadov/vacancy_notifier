@@ -45,7 +45,7 @@ Before running the script, make sure you have the following prerequisites instal
 
    ```bash
    git clone https://github.com/Ismat-Samadov/vacancy_notifier.git
-   cd job-scraper
+   cd vacancy_notifier
    ```
 
 2. Create a virtual environment (recommended) and activate it:
