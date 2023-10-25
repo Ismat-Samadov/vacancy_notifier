@@ -178,7 +178,8 @@ class JobScraper:
         vusal = "shukurovvusal@gmail.com"
         nasib = "suleymanovnasib@gmail.com"
         azar  = "azer14480@gmail.com"
-        mubu = "Abdiyev-mubariz@mail.ru"
+        mubu  = "Abdiyev-mubariz@mail.ru"
+        rustam = "rustam.isgandarli@outlook.com"
         if self.data is not None:
             df_data = self.data[self.data['vacancy'].str.contains("data", case=False)].reset_index(drop=True)
             df_audit = self.data[self.data['vacancy'].str.contains("audit", case=False)].reset_index(drop=True)
@@ -196,8 +197,12 @@ class JobScraper:
             if not df_audit.empty:
                 self.send_email(df_audit, polad)
                 self.send_email(df_audit, nasib)
+                self.send_email(df_audit,nigar)
+                self.send_email(df_audit,rustam)
             if not df_fraud.empty:
+                self.send_email(df_fraud,nigar)
                 self.send_email(df_fraud,cavid)
+                self.send_email(df_fraud,rustam)
 
 if __name__ == "__main__":
     job_scraper = JobScraper()
