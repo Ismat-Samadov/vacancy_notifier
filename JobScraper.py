@@ -171,15 +171,8 @@ class JobScraper:
 
     def filter_and_send_emails(self):
         ismat = "ismetsemedli@mail.ru"
-        nigar = "nigar.ly77@gmail.com"
-        polad = "polad55@rambler.ru"
-        cavid = "xasayev1996@gmail.com"
         kamal = "kamalkhalilov7@gmail.com"
-        vusal = "shukurovvusal@gmail.com"
-        nasib = "suleymanovnasib@gmail.com"
         azar  = "azer14480@gmail.com"
-        mubu  = "Abdiyev-mubariz@mail.ru"
-        rustam = "rustam.isgandarli@outlook.com"
         shams = "shamspashayeva41@gmail.com"
         if self.data is not None:
             df_data = self.data[self.data['vacancy'].str.contains("data", case=False)].reset_index(drop=True)
@@ -188,7 +181,6 @@ class JobScraper:
             df_business = self.data[self.data['vacancy'].str.contains("biznes", case=False)].reset_index(drop=True)
             df_fraud = self.data[self.data['vacancy'].str.contains("fraud", case=False)].reset_index(drop=True)
             if not df_data.empty:
-                self.send_email(df_data,mubu)
                 self.send_email(df_data,ismat )
                 self.send_email(df_data,kamal )
                 self.send_email(df_audit, shams)
@@ -198,16 +190,9 @@ class JobScraper:
             if not df_scrum.empty:
                 self.send_email(df_scrum,azar)
             if not df_audit.empty:
-                self.send_email(df_audit, polad)
                 self.send_email(df_audit, shams)
-                self.send_email(df_audit, nasib)
-                self.send_email(df_audit,nigar)
-                self.send_email(df_audit,rustam)
             if not df_fraud.empty:
-                self.send_email(df_fraud,nigar)
                 self.send_email(df_audit, shams)
-                self.send_email(df_fraud,cavid)
-                self.send_email(df_fraud,rustam)
 
 if __name__ == "__main__":
     job_scraper = JobScraper()
