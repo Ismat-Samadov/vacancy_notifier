@@ -107,8 +107,5 @@ You can customize the script to scrape job listings from additional company webs
 
 Contributions are welcome! If you have ideas for improvements or new features, please open an issue or submit a pull request.
 
-## License
-<!-- 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. -->
 
 ---
