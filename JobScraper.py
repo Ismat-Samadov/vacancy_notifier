@@ -106,7 +106,6 @@ class JobScraper:
                     title = item.get("title")
                     url = item.get("url")
                     job_vacancies.append({"company": "abb", "vacancy": title, "apply_link": url})
-
                 page += 1
             else:
                 print(f"Failed to retrieve data for page {page}. Status code: {response.status_code}")
@@ -122,11 +121,9 @@ class JobScraper:
                 soup = BeautifulSoup(response.text, 'html.parser')
                 job_titles = []
                 job_links = []
-
                 for element in soup.select('#vacancies > div > a'):
                     job_titles.append(element.text.strip())
                     job_links.append(element['href'])
-
                 data = {
                     'company': 'rabitebank',
                     'vacancy': job_titles,
@@ -173,7 +170,8 @@ class JobScraper:
         ismat = "ismetsemedli@mail.ru"
         kamal = "kamalkhalilov7@gmail.com"
         azar  = "azer14480@gmail.com"
-        shams = "shamspashayeva41@gmail.com"
+        nigar = "nigar.ly77@gmail.com"
+        rustam = "rustam.isgandarli@outlook.com"
         if self.data is not None:
             df_data = self.data[self.data['vacancy'].str.contains("data", case=False)].reset_index(drop=True)
             df_audit = self.data[self.data['vacancy'].str.contains("audit", case=False)].reset_index(drop=True)
@@ -183,16 +181,16 @@ class JobScraper:
             if not df_data.empty:
                 self.send_email(df_data,ismat )
                 self.send_email(df_data,kamal )
-                self.send_email(df_audit, shams)
             if not df_business.empty:
                 self.send_email(df_business,kamal)
-                self.send_email(df_audit, shams)
             if not df_scrum.empty:
                 self.send_email(df_scrum,azar)
             if not df_audit.empty:
-                self.send_email(df_audit, shams)
+                self.send_email(df_audit, nigar)
+                self.send_email(df_audit, rustam)
             if not df_fraud.empty:
-                self.send_email(df_audit, shams)
+                self.send_email(df_fraud, nigar)
+                self.send_email(df_fraud, rustam)
 
 if __name__ == "__main__":
     job_scraper = JobScraper()
