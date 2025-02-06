@@ -81,7 +81,7 @@ class JobScraper:
                 'Accept-Language': 'en-US,en;q=0.5'
             }
         }
-
+        
     async def save_to_db(self, df: pd.DataFrame) -> None:
         """Save scraped jobs to database/CSV asynchronously"""
         if df is None or df.empty:
@@ -95,7 +95,7 @@ class JobScraper:
             # Remove duplicates
             df = df.drop_duplicates(subset=['company', 'vacancy', 'apply_link'])
                 
-            # Save to CSV - use aiofiles for async file operations
+            # Save to CSV using aiofiles
             import aiofiles
             csv_data = df.to_csv(index=False)
             async with aiofiles.open('jobs.csv', mode='w') as f:
@@ -105,45 +105,60 @@ class JobScraper:
         except Exception as e:
             logger.error(f"Error saving data: {str(e)}")
 
-
     async def fetch_url_async(self, url: str, session: aiohttp.ClientSession, params=None, headers=None, verify_ssl=True) -> Optional[str]:
         """Enhanced fetch with better error handling and encoding detection"""
-        try:
-            if headers is None:
-                headers = self.session_config['headers']
-            
-            async with session.get(url, params=params, headers=headers, ssl=verify_ssl) as response:
-                if response.status != 200:
-                    logger.error(f"HTTP {response.status} error for {url}")
-                    return None
-                    
-                # Try to detect encoding
-                content_type = response.headers.get('Content-Type', '')
-                if 'charset=' in content_type:
-                    encoding = content_type.split('charset=')[-1]
-                else:
-                    encoding = 'utf-8'
+        retries = 3
+        delay = 1
+        
+        for attempt in range(retries):
+            try:
+                if headers is None:
+                    headers = self.session_config['headers']
                 
-                try:
-                    return await response.text(encoding=encoding)
-                except UnicodeDecodeError:
-                    # Fallback to binary and try common encodings
-                    content = await response.read()
-                    for enc in ['utf-8', 'latin1', 'cp1252', 'iso-8859-1']:
-                        try:
-                            return content.decode(enc)
-                        except UnicodeDecodeError:
-                            continue
-                            
-                    logger.error(f"Failed to decode response from {url} with any encoding")
-                    return None
+                async with session.get(url, params=params, headers=headers, ssl=verify_ssl) as response:
+                    if response.status == 403:
+                        logger.warning(f"Access forbidden (403) for {url}, retrying with different headers")
+                        headers = {
+                            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15',
+                            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9',
+                            'Accept-Language': 'en-US,en;q=0.9',
+                            'Cache-Control': 'no-cache',
+                            'Pragma': 'no-cache'
+                        }
+                        continue
                         
-        except Exception as e:
-            logger.error(f"Error fetching {url}: {str(e)}")
-            return None
+                    if response.status != 200:
+                        logger.error(f"HTTP {response.status} error for {url}")
+                        await asyncio.sleep(delay * (attempt + 1))
+                        continue
+                        
+                    try:
+                        return await response.text()
+                    except UnicodeDecodeError:
+                        content = await response.read()
+                        for encoding in ['utf-8', 'latin1', 'cp1252', 'iso-8859-1']:
+                            try:
+                                return content.decode(encoding)
+                            except UnicodeDecodeError:
+                                continue
+                                
+                        logger.error(f"Failed to decode response from {url}")
+                        return None
+                        
+            except aiohttp.ClientError as e:
+                logger.error(f"Connection error for {url}: {str(e)}")
+                await asyncio.sleep(delay * (attempt + 1))
+                continue
+                
+            except asyncio.TimeoutError:
+                logger.error(f"Timeout error for {url}")
+                await asyncio.sleep(delay * (attempt + 1))
+                continue
+                
+        return None
 
     async def parse_json_response(self, response: str, default=None) -> dict:
-        """Parse JSON response with better error handling"""
+        """Parse JSON response with improved error handling"""
         if not response:
             return default or {}
         try:
@@ -152,9 +167,15 @@ class JobScraper:
             return response
         except json.JSONDecodeError as e:
             logger.error(f"JSON parsing error: {str(e)}")
-            return default or {}
-
-
+            try:
+                # Try to clean the response before parsing
+                cleaned_response = response.strip()
+                if cleaned_response.startswith("'") and cleaned_response.endswith("'"):
+                    cleaned_response = cleaned_response[1:-1]
+                return json.loads(cleaned_response)
+            except json.JSONDecodeError:
+                logger.error("Failed to parse JSON even after cleaning")
+                return default or {}
 
     async def fetch_with_retry(self, url: str, session: aiohttp.ClientSession, 
                              max_retries: int = 3, **kwargs) -> Optional[str]:
@@ -307,7 +328,7 @@ class JobScraper:
                     self.data.dropna(subset=['company', 'vacancy'], inplace=True)
                     
                     # Save to database
-                    self.save_to_db(self.data)
+                    # self.save_to_db(self.data)
                     
                     logger.info(f"Successfully processed {len(self.data)} jobs total")
                 else:

@@ -1,4 +1,4 @@
-# email_notifier.py is a class that sends email notifications to users based on their preferences.
+# email_notifier.py
 import os
 import logging
 import smtplib
@@ -7,6 +7,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 import pandas as pd
+import aiosmtplib
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +15,7 @@ class EmailNotifier:
     def __init__(self):
         load_dotenv()
         self.smtp_server = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
-        self.smtp_port = int(os.getenv('SMTP_PORT', '587'))
+        self.smtp_port = int(os.getenv('SMTP_PORT', '465'))
         self.smtp_username = os.getenv('SMTP_USERNAME')
         self.smtp_password = os.getenv('SMTP_PASSWORD')
         
@@ -22,8 +23,8 @@ class EmailNotifier:
             raise ValueError("Missing email credentials in environment variables")
             
         self.user_preferences = {
-            'ismetsemedov@gmail.com': ['python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
-            'allahverdiyev.tural@hotmail.com': ['python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer']
+            'ismetsemedov@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
+            'allahverdiyev.tural@hotmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer']
         }
 
     def _create_email_content(self, matching_jobs: pd.DataFrame) -> str:
@@ -73,8 +74,7 @@ class EmailNotifier:
             try:
                 pattern = '|'.join(map(re.escape, keywords))
                 matching_jobs = jobs_df[
-                    jobs_df['vacancy'].str.contains(pattern, case=False, na=False, regex=True) |
-                    jobs_df['company'].str.contains(pattern, case=False, na=False, regex=True)
+                    jobs_df['vacancy'].str.contains(pattern, case=False, na=False, regex=True)
                 ]
                 
                 if matching_jobs.empty:
@@ -88,12 +88,15 @@ class EmailNotifier:
                 html_content = self._create_email_content(matching_jobs)
                 msg.attach(MIMEText(html_content, 'html'))
 
-                with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
-                    server.starttls()
-                    server.login(self.smtp_username, self.smtp_password)
-                    server.send_message(msg)
-                    
-                logger.info(f"Email notification sent to {user_email}")
+                try:
+                    async with aiosmtplib.SMTP(hostname=self.smtp_server, port=self.smtp_port) as smtp:
+                        # await smtp.starttls()
+                        await smtp.login(self.smtp_username, self.smtp_password)
+                        await smtp.send_message(msg)
+                        logger.info(f"Email notification sent to {user_email}")
+
+                except aiosmtplib.errors.SMTPException as e:
+                    logger.error(f"SMTP error sending email to {user_email}: {str(e)}")
 
             except Exception as e:
-                logger.error(f"Error sending email to {user_email}: {str(e)}")
+                logger.error(f"Error processing notifications for {user_email}: {str(e)}")
