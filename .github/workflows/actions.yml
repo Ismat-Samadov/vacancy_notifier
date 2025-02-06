@@ -1,11 +1,12 @@
-name: Run main.py Every Minute
+name: Run Job Scraper
 
 on:
   schedule:
-    # - cron: '45 4 * * *' # runs everyday 04 : 45
+    - cron: '0 6,12 * * *'  # Runs at 6 AM and 4 PM UTC daily
+  workflow_dispatch:  # Enables manual trigger
 
 jobs:
-  run-main-py:
+  run-scraper:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,10 +16,17 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.10.12
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
+        python-version: '3.10.12'
 
-    - name: Run JobScraper.py
-      run: python JobScraper.py
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run Job Scraper
+      env:
+        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+        SMTP_PORT: ${{ secrets.SMTP_PORT }}
+        SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        EMAIL: ${{ secrets.EMAIL }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+      run: python main.py
