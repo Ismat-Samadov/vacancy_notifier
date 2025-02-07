@@ -24,8 +24,11 @@ class EmailNotifier:
             
         self.user_preferences = {
             'ismetsemedov@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
-            'allahverdiyev.tural@hotmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer']
+            'allahverdiyev.tural@hotmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
+            'qabil.isayev@icloud.com ':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
+            'mammadova.arzu@outlook.com ':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
         }
+        
 
     def _create_email_content(self, matching_jobs: pd.DataFrame) -> str:
         html_content = """
