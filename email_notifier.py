@@ -23,7 +23,7 @@ class EmailNotifier:
             raise ValueError("Missing email credentials in environment variables")
             
         self.user_preferences = {
-            'ismetsemedov@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
+            'ismetsemedov@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer','scrap'],
             'allahverdiyev.tural@hotmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
             'qabil.isayev@icloud.com ':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
             'mammadova.arzu@outlook.com ':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
