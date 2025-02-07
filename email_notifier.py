@@ -27,6 +27,7 @@ class EmailNotifier:
             'allahverdiyev.tural@hotmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
             'qabil.isayev@icloud.com ':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
             'mammadova.arzu@outlook.com ':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
+            'isgandarli.rustam@gmail.com ':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
         }
         
 
