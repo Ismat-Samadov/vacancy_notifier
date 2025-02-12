@@ -25,9 +25,10 @@ class EmailNotifier:
         self.user_preferences = {
             'ismetsemedov@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer','scrap'],
             'allahverdiyev.tural@hotmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
-            'qabil.isayev@icloud.com ':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
-            'mammadova.arzu@outlook.com ':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
-            'isgandarli.rustam@gmail.com ':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
+            'qabil.isayev@icloud.com':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
+            'mammadova.arzu@outlook.com':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
+            'isgandarli.rustam@gmail.com':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
+            'alasgarova18@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
         }
         
 
