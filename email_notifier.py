@@ -26,8 +26,11 @@ class EmailNotifier:
             'ismetsemedov@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer','scrap'],
             'allahverdiyev.tural@hotmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
             'qabil.isayev@icloud.com':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
+            'naimkaram94@icloud.com':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
             'isgandarli.rustam@gmail.com':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
             'alasgarova18@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
+            'ismayilovashukufe@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
+            'ismayilovashukufe@gmail.com':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
         }
         
 
