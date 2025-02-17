@@ -32,6 +32,7 @@ class EmailNotifier:
             'alasgarova18@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
             'ismayilovashukufe@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
             'ismayilovashukufe@gmail.com':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
+            'suleymanov.1994@gmail.com':['copywrite','marketing','marketinq','scrum','agile','product','manager','product manager','product owner','product owner','product marketing','product marketing'],
         }
         
 
