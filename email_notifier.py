@@ -33,7 +33,8 @@ class EmailNotifier:
             'ismayilovashukufe@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
             'ismayilovashukufe@gmail.com':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
             'suleymanov.1994@gmail.com':['copywrit','marketing','marketinq','scrum','agile','product','manager','product manager','product owner','product owner','product marketing','product marketing'],
-            'sa.seyidova@gmail.com':['hr','insan resurslar','insan','ir', 'human resources','recruit','recruitment','talent','talent acquisition','hr manager','hr specialist','hr generalist','hr coordinator','hr assistant','hr director','hr business partner','hr consultant','hr recruiter','hr officer','hr executive','hr administrator','hr associate','hr advisor','hr analyst','hr assistant manager','hr coordinator','hr consultant','hr coordinator','hr director','hr executive','hr generalist','hr manager','hr officer','hr recruiter','hr specialist','hr supervisor','hr team leader']
+            'sa.seyidova@gmail.com':['hr','insan resurslar','insan','ir', 'human resources','recruit','recruitment','talent','talent acquisition','hr manager','hr specialist','hr generalist','hr coordinator','hr assistant','hr director','hr business partner','hr consultant','hr recruiter','hr officer','hr executive','hr administrator','hr associate','hr advisor','hr analyst','hr assistant manager','hr coordinator','hr consultant','hr coordinator','hr director','hr executive','hr generalist','hr manager','hr officer','hr recruiter','hr specialist','hr supervisor','hr team leader'],
+            # 'ismetsemedov@gmail.com': ['Windows System Administrator','System Administrator','Software Engineer – Full-Stack Developer']
         }
         
 
