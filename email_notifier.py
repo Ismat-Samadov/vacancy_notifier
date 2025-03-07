@@ -28,7 +28,7 @@ class EmailNotifier:
             'qabil.isayev@icloud.com':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
             'naimkaram94@icloud.com':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
             'isgandarli.rustam@gmail.com':['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
-            'shukurovvusal@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
+            # 'shukurovvusal@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
             'alasgarova18@gmail.com': ['analy','anali','python', 'sql', 'data', 'data science', 'ml engineer', 'machine learning', 'ai engineer'],
             'ismayilovashukufe@gmail.com': ['fraud', 'risk', 'audit', 'control', 'nəzarət', 'compliance','frod'],
             'suleymanov.1994@gmail.com':['copywrit','marketing','marketinq','scrum','agile','product','manager','product manager','product owner','product owner','product marketing','product marketing'],
